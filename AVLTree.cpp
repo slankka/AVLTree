@@ -1,4 +1,4 @@
-#include "AVLTree.h"
+ï»¿#include "AVLTree.h"
 #include "stdio.h"
 #include "malloc.h"
 
@@ -8,8 +8,17 @@ if(T!=NULL){
 	MakeEmpty(T->Right);
 	free(T);
 }
-
 return NULL;
+}
+
+AvlTree InitaTree(AvlTree& T)
+{
+		  T = (AvlTree)malloc(sizeof(TreeNode)); 
+		  T->Left=NULL;
+		  T->Right=NULL;
+		  T->Element=0;
+		  T->Height=0;
+		return T;
 }
 
 static int Height(Position P)
@@ -25,7 +34,7 @@ static int Max(int a,int b)
 return a>b?a:b;
 }
   
-AvlTree Insert(ElementType X, AvlTree T){
+AvlTree Insert(ElementType X, AvlTree &T){
 	if (T==NULL)
 	{
 		T=(Position)malloc(sizeof(TreeNode));
@@ -35,26 +44,26 @@ AvlTree Insert(ElementType X, AvlTree T){
 		T->Height=0;
 		T->Left=T->Right=NULL;
 	}
-	else if(X<T->Element)//×ó×ÓÊ÷²åÈëĞÂ½Úµã
+	else if(X<T->Element)//å·¦å­æ ‘æ’å…¥æ–°èŠ‚ç‚¹
 	{
 		T->Left=Insert(X,T->Left);
-		if(Height (T->Left)-Height(T->Right)==2)//×ó×ÓÊ÷²åÈë½ÚµãËùÒÔ¸ß¶ÈÊÇ×ó×ÓÊ÷¸ßÓÚÓÒ×ÓÊ÷
+		if(Height (T->Left)-Height(T->Right)==2)//å·¦å­æ ‘æ’å…¥èŠ‚ç‚¹æ‰€ä»¥é«˜åº¦æ˜¯å·¦å­æ ‘é«˜äºå³å­æ ‘
 		{
 			if(X<T->Left->Element)
-				T=SingleRotateWithLeft(T);//¶Ô ¦Á µÄ×ó¶ù×ÓµÄ×ó×ÓÊ÷½øĞĞÒ»´Î²åÈë£¬ĞèÒª×óĞı
+				T=SingleRotateWithLeft(T);//å¯¹ Î± çš„å·¦å„¿å­çš„å·¦å­æ ‘è¿›è¡Œä¸€æ¬¡æ’å…¥ï¼Œéœ€è¦å·¦æ—‹
 			else
-                 T = DoubleRotateWithLeft(T); //¶Ô ¦Á µÄ×ó¶ù×ÓµÄÓÒ×ÓÊ÷½øĞĞÒ»´Î²åÈë£¬ĞèÒªË«Ğı  
+                 T = DoubleRotateWithLeft(T); //å¯¹ Î± çš„å·¦å„¿å­çš„å³å­æ ‘è¿›è¡Œä¸€æ¬¡æ’å…¥ï¼Œéœ€è¦åŒæ—‹  
 
 		}
 	}
-	else if(X > T->Element)//ÓÒ×ÓÊ÷²åÈëĞÂ½Úµã
+	else if(X > T->Element)//å³å­æ ‘æ’å…¥æ–°èŠ‚ç‚¹
 	{
 		T->Right=Insert(X,T->Right);
 		if(Height(T->Right) -Height(T->Left) == 2)
 		{
-			if(X < T->Left->Element)//¶Ô ¦Á µÄÓÒ¶ù×ÓµÄÓÒ×ÓÊ÷½øĞĞÒ»´Î²åÈë£¬ĞèÒªÓÒĞı   
+			if(X > T->Right->Element)//å¯¹ Î± çš„å³å„¿å­çš„å³å­æ ‘è¿›è¡Œä¸€æ¬¡æ’å…¥ï¼Œéœ€è¦å³æ—‹   
 				T=SingleRotateWithRight(T);
-			else //¶Ô ¦Á µÄÓÒ¶ù×ÓµÄ×ó×ÓÊ÷½øĞĞÒ»´Î²åÈë£¬ĞèÒªË«Ğı
+			else //å¯¹ Î± çš„å³å„¿å­çš„å·¦å­æ ‘è¿›è¡Œä¸€æ¬¡æ’å…¥ï¼Œéœ€è¦åŒæ—‹
 				T=DoubleRotateWithRight(T);
 		}
 	}
@@ -88,14 +97,14 @@ static Position SingleRotateWithRight(Position K2)
 
 }
 
-static Position DoubleRotateWithLeft(Position K3) //¶Ô×ó¶ù×ÓµÄÓÒ×ÓÊ÷½øĞĞ²åÈëµÄĞı×ª
+static Position DoubleRotateWithLeft(Position K3) //å¯¹å·¦å„¿å­çš„å³å­æ ‘è¿›è¡Œæ’å…¥çš„æ—‹è½¬
 {
 	K3->Left=SingleRotateWithRight(K3->Left);
 	return SingleRotateWithLeft(K3);
 
 }
 
-static Position DoubleRotateWithRight(Position K3)//¶ÔÓÒ¶ù×ÓµÄ×ó×ÓÊ÷½øĞĞ²åÈëµÄĞı×ª
+static Position DoubleRotateWithRight(Position K3)//å¯¹å³å„¿å­çš„å·¦å­æ ‘è¿›è¡Œæ’å…¥çš„æ—‹è½¬
 {
 	K3->Right=SingleRotateWithLeft(K3->Right);
 	return SingleRotateWithRight(K3);

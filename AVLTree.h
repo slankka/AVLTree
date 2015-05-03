@@ -1,4 +1,4 @@
-#include "stdio.h"
+﻿#include "stdio.h"
 #include "stdlib.h"
 typedef int ElementType;  
 	  
@@ -17,7 +17,8 @@ typedef struct TreeNode *AvlTree;
 typedef struct TreeNode *Position;  
 	  
 AvlTree MakeEmpty(AvlTree T);  
-AvlTree Insert(ElementType X, AvlTree T);  
+AvlTree InitaTree(AvlTree& T);
+AvlTree Insert(ElementType X, AvlTree& T);  
 Position Find(ElementType X ,AvlTree T);  
 Position FindMax(AvlTree T);  
 Position FindMin(AvlTree T); 
@@ -29,6 +30,7 @@ static Position SingleRotateWithRight(Position K2);
 static Position DoubleRotateWithLeft(Position K3);
 static Position DoubleRotateWithRight(Position K3);
 void FatalError(char message[]);
+
 
 
 #endif  
