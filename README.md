@@ -1,4 +1,4 @@
 # AVLTree
 Tested! Balanced Index Binary Tree
-AVLTree author:slannka
+AVLTree author:slankka
 implemented by c++
